@@ -5,11 +5,11 @@
 If you're looking for a pragmatic Hypermedia-enabled REST convention for your project; Yahapi is the answer. Yahapi guides your API design to:
 
 - … link resources to each other;
-- … embed different resource types within your JSON response;
-- … provide a single unified error format for you API;
+- … embed resources directly in your JSON response;
+- … provide a single unified error format for your API;
 - … promote you to add references to your API documentation in your JSON response;
 - … define how to return partial results;
-- … sort and paginate collections.
+- … sort and paginate collection resources.
 
 ## Example
 
@@ -73,7 +73,7 @@ GET /orders/43983
         "items": { "href": "https://api.example.com/orders/43983/items" }
     },
     "meta": {
-    	"retrievedOn": "2014-08-06T11:38:24.162Z"
+    	"retrieved_on": "2014-08-06T11:38:24.162Z"
 	 }
 }
 ```

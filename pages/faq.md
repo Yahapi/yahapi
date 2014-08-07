@@ -37,14 +37,14 @@ There are many flavors of Hypermedia types, finding the right one can be a chall
 
 ## Why not use Web Linking (RFC 5988)?
 
-RFC 5988 enables hypermedia links within a HTTP `Link`-header, for example:
+[RFC 5988](http://tools.ietf.org/html/rfc5988) enables hypermedia links within a HTTP `Link`-header, for example:
 
 	Link: <http://example.com/TheBook/chapter2>; rel="previous";
          title="previous chapter"
 
-Yahapi does not use these because;
+Yahapi does not use this because;
 
-1) Link headers are easy to miss when viewing the response in a web browser; by treating links as first-class citizens of your resource representation you really promote them to your client.
+1) Link headers are easy to miss when viewing the response in a web browser. By treating links as first-class citizens of your resource representation you really promote them to your client.
 
 2) Link headers do not work well for embedded/nested resources, imagine the following response:
 
@@ -73,7 +73,9 @@ Moving all these links to a single HTTP header is not pragmatic.
 
 ## Why support different types of resources in the same collection?
 
-Often in a SOA or Microservices architecture lower-level services are unaware of the business processes in which they are used. This lack of context may render them quite abstract. Lower-level services may not actually interpret what they are working with, they might just keep a reference to them. 
+Make no mistake, collection resources must be homogeneous with regard to its element properties.
+
+In a SOA or Microservices architecture lower-level services are often unaware of the business processes in which they are used. This lack of context may render them quite generic. Lower-level services may not actually interpret what they are working with, they might just keep a reference to them. 
 
 Imagine an order system that pulls products from different types of services; its list of items may be represented as follows:
 
@@ -97,13 +99,13 @@ Imagine an order system that pulls products from different types of services; it
     ],
 …
 ```
-The resource collection is still homogeneous by listing items with identical properties. The `type`  is there to allow higher-level services to interpret the collection's content. If a business service responsible for automated food-ordering it will be interested in "fresh-foods" only and have no understanding of "books". Similarly a front-end client might decide based on the `type` to display items differently or filter them.
+The resource collection is homogeneous because it lists items with identical properties. The `type`  is there to allow higher-level services to interpret the collection's content. If a business service is responsible for automated food-ordering it will be interested in "fresh-foods" only and have no understanding of "books". Similarly a front-end client might decide based on the `type` to display items differently or filter them.
 
 The `type` is the key element for clients to understand how to interpret that resource.
 
 ## Who have contributed to Yahapi?
 
-The author of Yahapi is Niels Krijger <mailto:niels@kryger.nl>.
+The author of Yahapi is Niels Krijger (<mailto:niels@kryger.nl>).
 
 ## How can I contribute?
 

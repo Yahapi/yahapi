@@ -57,7 +57,7 @@ A `links` property **SHOULD** contain a `self`-relationship.
 A resource **SHOULD** contain a `links` property containing valid URL's keyed by their [relationship](http://www.iana.org/assignments/link-relations/link-relations.xml) to the resource.
 
 	{
-		...
+		…
 		"links": {
 			"self": { "href": "https://api.example.com/orders/001342" },
 			"payment": { "href": "https://api.example.com/payment/53415" }
@@ -119,7 +119,7 @@ A collection resource **MAY** support sorting criteria in a collection by adding
 
 	GET /products?sort=type
 
-### 4.4.2 Ascending and descending sort
+### 4.4.2 Ascending and descending
 
 The default order of a `sort` query parameter **MUST** be ascending.
 
@@ -127,32 +127,52 @@ To sort a collection in descending order the value of a `sort` query parameter *
 
 	GET /products?sort=-expirationDate
 
-## 4.4.3 Multiple sort criteria
+### 4.4.3 Multiple sort criteria
 
 A collection resource supporting multiple sort criteria **SHOULD** allow multiple criteria in the `sort` query string separated by comma's:
 
 	GET /products?sort=type,-expirationDate
 
-The query string in the example above sorts products by `type` in ascending order first, and sorts all items with the same `type` by `expirationDate` in descending order.
+The query string in the example above sorts products by `type` in ascending order first, and sorts all items of the same `type` by `expirationDate` in descending order.
 
 # 5 Embedded resources
 
 ## 5.1 Embedded resource identity
 An embedded resource MUST have at least one `type`, `links` or `meta` property.
 
-The elements of an embedded resource collection MUST have at least one `type`, `links` or `meta` property.
+	GET /persons/john
+	{
+		"name": "John Doe",
+		"type": "person",
+		"address": {
+			"street": "221A Baker Street",
+			"links": {
+				"address": { "href": "" }
+			}
+		}
+	}
+
+The example above shows a resource `person` with an embedded resource `address`. The `address` is identified as a resource based on the presence of a `link` property.
 
 ## 5.2 Embedded collection resource
+
+All elements of an embedded resource collection **MUST** have at least one `type`, `links` or `meta` property.
 
 An embedded collection resource **SHOULD NOT** support pagination.
 
 An embedded collection resource **SHOULD NOT** support ordering.
 
-An embedded collection resource should be kept simple and contain either the entire or most relevant subset of items of the entire collection. Embedding a collection resource is an optimization to aid the most common use cases for your API, no more. Uncommon use cases should use the entire collection resource representation.
+An embedded collection resource should be kept simple and contain either the entire or most relevant subset of items of the entire collection. Embedding a collection resource is an optimization to support the most common use cases for your API, no more. Uncommon use cases should query the entire collection resource.
 
-# 6. References
+# 6. Style
 
+## 6.1. lowerCamelCase vs snake_case
 
+Your service **SHOULD NOT** use [UpperCamelCase](http://en.wikipedia.org/wiki/CamelCase).
+
+Your service **SHOULD** maintain a consistent format.
+
+Yahapi does not define whether to use [lowerCamelCase](http://en.wikipedia.org/wiki/CamelCase) or [snake_case](http://en.wikipedia.org/wiki/Snake_case). 
 
 # Update History
 2014-08-06: First draft
