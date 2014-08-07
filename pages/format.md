@@ -72,9 +72,11 @@ A resource **MAY** contain a `meta` property.
 
 # 4 Collection resource
 
-## 4.1 Element format
+## 4.1 Element properties
 
-A collection resource **MUST** be homogeneous and contain only elements with the same attributes. *The following is invalid*:
+A collection resource **MUST** be homogeneous and contain only elements with the same attributes. 
+
+*The following is invalid*:
 
 	{
 		"items": [

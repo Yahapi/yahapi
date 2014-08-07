@@ -10,18 +10,19 @@ Adding hypermedia controls makes your API more fun to work with for your client.
 
 ## Why not use HAL?
 
-HAL is great and you should definitely give it a look. You might consider using Yahapi because:
+[HAL](http://stateless.co/hal_specification.html) is great and you should definitely give it a look. You might consider using Yahapi because:
 
-* HAL prefixes reserved words with an udnerscore (e.g. `_links`) whereas Yahapi likes to treat links as normal elements of your API.
+* HAL prefixes reserved words with an underscore (e.g. `_links`) whereas Yahapi likes to treat links as normal elements of your API.
 * HAL moves embedded objects to an `_embedded` property, whereas Yahapi allows you to keep embedded objects as nested objects directly in your representation. Separating embedded objects in your representation is in line with the hypermedia philosophy but renders API's difficult to read and unpragmatic, Yahapi focusses on readability and pragmatism more than on hypermedia.
 
 ## Why not use JSON API?
 
-JSON API is a big inspiration for Yahapi. Why you might consider using Yahapi instead is:
+[JSON API](http://jsonapi.org/) is a big inspiration for Yahapi. Why you might consider using Yahapi instead is:
 
 * JSON API focusses heavily on a reserved `id` property and makes clever use of this to link resources to each other, whereas Yahapi leaves you free to pick your own identifier type. In many business domains identity schemes already exists (e.g. [EAN](http://en.wikipedia.org/wiki/International_Article_Number_(EAN))) which make for a more descriptive resource identifier. In addition a business key is often a compound key made up of two or more elements, in a JSON API this might be easily missed.
-* Yahapi foucsses on readability and simple clients whereas JSON API focusses on the use of smart client:
-> It is specifically focused around using those APIs with a smart client that knows how to cache documents it has already seen and avoid asking for them again. [FAQ](http://jsonapi.org/faq/)
+* Yahapi foucsses on readability and simple clients whereas JSON API focusses on the use of smart clients:
+
+> JSON API is specifically focused around using those APIs with a smart client that knows how to cache documents it has already seen and avoid asking for them again. [FAQ](http://jsonapi.org/faq/)
 
 ## Why not use Yahapi?
 
@@ -33,18 +34,18 @@ Obviously we think Yahapi is great, but in one use case some Hypermedia type may
 * If you'd like to serialize requests and responses directly to persistable entities, look at [Siren](https://github.com/kevinswiber/siren).
 * If your API focusses on collection resources and you want to dynamically provide new search capabilities to your clients, have a look at [Collection+JSON](http://amundsen.com/media-types/collection/).
 
-There are many flavors of Hypermedia types, finding the right one can be a challenge. We found for many use cases we didn't really need any of the above and just wanted a pragmatic standard we could use. Yahapi is the result.
+There are many flavors of Hypermedia types, finding the right one can be a challenge. We found none of the above really fits a wide range of common use cases. Yahapi is the result.
 
 ## Why not use Web Linking (RFC 5988)?
 
-[RFC 5988](http://tools.ietf.org/html/rfc5988) enables hypermedia links within a HTTP `Link`-header, for example:
+[RFC 5988](http://tools.ietf.org/html/rfc5988) standardizes hypermedia links within a HTTP `Link`-header, for example:
 
 	Link: <http://example.com/TheBook/chapter2>; rel="previous";
          title="previous chapter"
 
 Yahapi does not use this because;
 
-1) Link headers are easy to miss when viewing the response in a web browser. By treating links as first-class citizens of your resource representation you really promote them to your client.
+1) Link headers are easy to miss when viewing the response in a web browser or even in a curl. By treating links as first-class citizens of your resource representation you really promote them to your client.
 
 2) Link headers do not work well for embedded/nested resources, imagine the following response:
 
@@ -52,18 +53,19 @@ Yahapi does not use this because;
 GET /orders/43983
 {
     "id": 43983,
+    "customerId": 914,
     "type": "order",
-    "href": "https://api.example.com/orders/43983",
     "items": [
         {
-            "id": "912332",,
-            "href": "https://api.example.com/orders/43983/items/912332",
+            "id": "912332",
             "links": {
+                "self": { "href": "https://api.example.com/orders/43983/items/912332" },
                 "product": { "href": "https://api.example.com/products/EZ-21562" }
             }
         }
     ],
     "links": {
+        "self": { "href": "https://api.example.com/orders/43983" },
         "customer": { "href": "https://api.example.com/customers/914" },
         "items": { "href": "https://api.example.com/orders/43983/items" }
     }

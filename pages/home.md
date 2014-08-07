@@ -88,7 +88,7 @@ Yahapi uses three reserved top-level keywords: `type`, `links` and `meta`.
 
 # Why Yet Another Hypermedia type?
 
-In a [world](http://json-ld.org/) [full](http://stateless.co/hal_specification.html) [of](https://github.com/kevinswiber/siren) [hypermedia](http://amundsen.com/media-types/collection/) [types](http://jsonapi.org/) why choose Yahapi? Truth is none of the current Hypermedia types has become a practical standard; they are either too complex or lack features to fully drive your API design. The hypermedia that comes closest to being a full service style guide and hypermedia type ([JSON API](http://jsonapi.org/)) requires quite an advanced server and client library to make fully use of. 
+In a [world](http://json-ld.org/) [full](http://stateless.co/hal_specification.html) [of](https://github.com/kevinswiber/siren) [hypermedia](http://amundsen.com/media-types/collection/) [types](http://jsonapi.org/) why choose Yahapi? Truth is none of the current Hypermedia types has become a practical standard; they are either too complex or lack features to fully drive your API design. The hypermedia that comes close to being a full service style guide and hypermedia type ([JSON API](http://jsonapi.org/)) requires an advanced server and client to make fully use of. 
 
 Yahapi is designed to keep things simple. Yahapi adds hypermedia controls with limited modifications to the "naive" JSON REST design, promoting readability and pragmatism.
 
