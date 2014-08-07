@@ -13,4 +13,4 @@ Read more about Yahapi on <http://www.yahapi.com>.
 
 # Please contribute!
 
-Yahapi is a work in progress, if you feel like contributing open up an [issue](https://github.com/nielskrijger/yahapi/issues) to start off a discussion or create a Pull Request with your suggested changes.
+Yahapi is a work in progress, if you feel like contributing open up an [issue](https://github.com/nielskrijger/yahapi/issues) to start off a discussion or create a [Pull Request](https://github.com/nielskrijger/yahapi/pulls) with your suggested changes.

@@ -20,9 +20,20 @@ HAL is great and you should definitely give it a look. You might consider using 
 JSON API is a big inspiration for Yahapi. Why you might consider using Yahapi instead is:
 
 * JSON API focusses heavily on a reserved `id` property and makes clever use of this to link resources to each other, whereas Yahapi leaves you free to pick your own identifier type. In many business domains identity schemes already exists (e.g. [EAN](http://en.wikipedia.org/wiki/International_Article_Number_(EAN))) which make for a more descriptive resource identifier. In addition a business key is often a compound key made up of two or more elements, in a JSON API this might be easily missed.
-* Yahapi foucsses on readability and simple clients, JSON API focusses on the use of smart client:
+* Yahapi foucsses on readability and simple clients whereas JSON API focusses on the use of smart client:
 > It is specifically focused around using those APIs with a smart client that knows how to cache documents it has already seen and avoid asking for them again. [FAQ](http://jsonapi.org/faq/)
 
+## Why not use Yahapi?
+
+Obviously we think Yahapi is great, but in one use case some Hypermedia type may work better than others. For example:
+
+* If you're working with an existing API and can't afford to change anything other than adding properties you should look at [HAL](http://stateless.co/hal_specification.html).
+* If you want client software that intelligently tries to cache requests and minimize redundant requests, look at [JSON API](http://jsonapi.org/). 
+* If you need a very comprehensive and formal approach to linking relationships between resources, have a look at [JSON+LD](http://json-ld.org/).
+* If you'd like to serialize requests and responses directly to persistable entities, look at [Siren](https://github.com/kevinswiber/siren).
+* If your API focusses on collection resources and you want to dynamically provide new search capabilities to your clients, have a look at [Collection+JSON](http://amundsen.com/media-types/collection/).
+
+There are many flavors of Hypermedia types, finding the right one can be a challenge. We found for many use cases we didn't really need any of the above and just wanted a pragmatic standard we could use. Yahapi is the result.
 
 ## Why not use Web Linking (RFC 5988)?
 
@@ -62,7 +73,9 @@ Moving all these links to a single HTTP header is not pragmatic.
 
 ## Why support different types of resources in the same collection?
 
-Often in a SOA or Microservices architecture lower-level services are unaware of the business processes in which they are used. This lack of context may render them quite abstract. Lower-level service may not need to know which items are maintained by the resource, it might just keep references to them. Imagine an order system that pulls products from different types of services, its list of items may be represented like this:
+Often in a SOA or Microservices architecture lower-level services are unaware of the business processes in which they are used. This lack of context may render them quite abstract. Lower-level services may not actually interpret what they are working with, they might just keep a reference to them. 
+
+Imagine an order system that pulls products from different types of services; its list of items may be represented as follows:
 
 ```
 …
@@ -84,7 +97,9 @@ Often in a SOA or Microservices architecture lower-level services are unaware of
     ],
 …
 ```
-The resource collection is still homogeneous as it lists items with identical properties. The `type`  is there to allow higher-level services to interpret its content. For example an automated ordering service might order "fresh-foods" only and have no understanding of "books". Similarly a front-end client might decide based on the `type` to display items differently.
+The resource collection is still homogeneous by listing items with identical properties. The `type`  is there to allow higher-level services to interpret the collection's content. If a business service responsible for automated food-ordering it will be interested in "fresh-foods" only and have no understanding of "books". Similarly a front-end client might decide based on the `type` to display items differently or filter them.
+
+The `type` is the key element for clients to understand how to interpret that resource.
 
 ## Who have contributed to Yahapi?
 
@@ -92,4 +107,4 @@ The author of Yahapi is Niels Krijger <mailto:niels@kryger.nl>.
 
 ## How can I contribute?
 
-Please do! The source of Yahapi is on Github, open up a pull request
+Please do! Yahapi is hosted on [Github](https://github.com/nielskrijger/yahapi), if you feel like contributing open up an [issue](https://github.com/nielskrijger/yahapi/issues) to start off a discussion or create a [Pull Request](https://github.com/nielskrijger/yahapi/pulls) with your suggested changes.
