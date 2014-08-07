@@ -11,7 +11,7 @@
 
 # 1. Media type JSON
 
-Currently no media type has been registered for Yahapi.
+The media type of a Yahapi document is **`application/json`**.
 
 # 2. Top-level
 
@@ -53,7 +53,6 @@ Full resource representations of elements in the same collection **MAY** contain
 	
 ## 2.2. links
 
-A `links` property **SHOULD** contain a `self`-relationship.
 A resource **SHOULD** contain a `links` property containing valid URL's keyed by their [relationship](http://www.iana.org/assignments/link-relations/link-relations.xml) to the resource.
 
 	{
@@ -64,8 +63,10 @@ A resource **SHOULD** contain a `links` property containing valid URL's keyed by
 		}
 	}
 
+Every resource **SHOULD** contain a `links` property with a `self`-relationship.
+
 ## 2.3 meta
-A resource **MAY** contain a `meta` property des 
+A resource **MAY** contain a `meta` property.
 
 # 3 Single resource
 
@@ -73,7 +74,7 @@ A resource **MAY** contain a `meta` property des
 
 ## 4.1 Element format
 
-A collection resource **MUST** be homogeneous and contain only elements with the same attributes. **The following is invalid**:
+A collection resource **MUST** be homogeneous and contain only elements with the same attributes. *The following is invalid*:
 
 	{
 		"items": [
