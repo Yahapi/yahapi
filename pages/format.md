@@ -13,7 +13,7 @@
 
 The media type of a Yahapi document is **`application/json`**.
 
-# 2. Top-level
+# 2. Single resource object
 
 A Yahapi document **MUST** contain at least one resource. A minimum valid document is:
 
@@ -21,7 +21,7 @@ A Yahapi document **MUST** contain at least one resource. A minimum valid docume
 
 ## 2.1. type
 
-A resource **SHOULD** have a `type` property:
+A resource object **SHOULD** have a `type` property:
 
 	{
 		"type": "product"
@@ -53,7 +53,7 @@ Full resource representations of elements in the same collection **MAY** contain
 	
 ## 2.2. links
 
-A resource **SHOULD** contain a `links` property containing valid URL's keyed by their [relationship](http://www.iana.org/assignments/link-relations/link-relations.xml) to the resource.
+A resource object **SHOULD** contain a `links` property containing valid URL's keyed by their [relationship](http://www.iana.org/assignments/link-relations/link-relations.xml) to the resource. 
 
 	{
 		…
@@ -63,18 +63,16 @@ A resource **SHOULD** contain a `links` property containing valid URL's keyed by
 		}
 	}
 
-Every resource **SHOULD** contain a `links` property with a `self`-relationship.
+Every resource object **SHOULD** contain a `links` property with a `self`-relationship.
 
 ## 2.3 meta
 A resource **MAY** contain a `meta` property.
-
-# 3 Single resource
 
 # 4 Collection resource
 
 ## 4.1 Element properties
 
-A collection resource **MUST** be homogeneous and contain only elements with the same attributes. 
+A collection resource **MUST** be homogeneous and contain only elements with the same properties. 
 
 *The following is invalid*:
 
@@ -140,22 +138,25 @@ The query string in the example above sorts products by `type` in ascending orde
 
 # 5 Embedded resources
 
-## 5.1 Embedded resource identity
-An embedded resource MUST have at least one `type`, `links` or `meta` property.
+## 5.1 Embedded resource object identity
+An embedded resource object MUST have at least a `type`, `links` or `meta` property or be referenced within the parent resource object in the their `links` with an identical name.
 
 	GET /persons/john
 	{
-		"name": "John Doe",
-		"type": "person",
+		"name": "John",
 		"address": {
 			"street": "221A Baker Street",
-			"links": {
-				"address": { "href": "" }
-			}
+			"type": "home-address"
+		},
+		"links": {
+			"self": { "href": "/persons/john" },
+			"address": { "href": "https://api.example.com/addresses/16342" }
 		}
 	}
 
-The example above shows a resource `person` with an embedded resource `address`. The `address` is identified as a resource based on the presence of a `link` property.
+The example above shows a resource `person` with an embedded resource `address`. The `address` is identified as a resource object based on the presence of a `type` property and because a `links` relationship exists with the same name as the object property.
+
+> Note: top-level resources are always identified as a resource and do not have these requirements.
 
 ## 5.2 Embedded collection resource
 
@@ -165,17 +166,15 @@ An embedded collection resource **SHOULD NOT** support pagination.
 
 An embedded collection resource **SHOULD NOT** support ordering.
 
-An embedded collection resource should be kept simple and contain either the entire or most relevant subset of items of the entire collection. Embedding a collection resource is an optimization to support the most common use cases for your API, no more. Uncommon use cases should query the entire collection resource.
+An embedded collection resource should be kept simple and contain either the entire or most relevant subset of items. Embedding a collection resource is an optimization to support the most common use cases for your API, no more. Uncommon use cases should query the entire collection resource.
 
 # 6. Style
 
-## 6.1. lowerCamelCase vs snake_case
+## 6.1. lowerCamelCase and snake_case
 
-Your service **SHOULD NOT** use [UpperCamelCase](http://en.wikipedia.org/wiki/CamelCase).
+Your API **SHOULD** use [lowerCamelCase](http://en.wikipedia.org/wiki/CamelCase) or [snake_case](http://en.wikipedia.org/wiki/Snake_case) for resource property names.
 
-Your service **SHOULD** maintain a consistent format.
-
-Yahapi does not define whether to use [lowerCamelCase](http://en.wikipedia.org/wiki/CamelCase) or [snake_case](http://en.wikipedia.org/wiki/Snake_case). 
+Your API **MUST** maintain a consistent format.
 
 # Update History
 2014-08-06: First draft

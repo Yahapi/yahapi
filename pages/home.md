@@ -13,7 +13,7 @@ If you're looking for a pragmatic Hypermedia-enabled REST convention for your pr
 
 ## Example
 
-Assume the following naive JSON response:
+Assume you have the following JSON API:
 
 ```
 GET /orders/43983
@@ -73,18 +73,18 @@ GET /orders/43983
         "items": { "href": "https://api.example.com/orders/43983/items" }
     },
     "meta": {
-    	"retrieved_on": "2014-08-06T11:38:24.162Z"
+    	"retrievedOn": "2014-08-06T11:38:24.162Z"
 	 }
 }
 ```
 
-In this example no properties were changed or moved, they were only added. Also none of the new properties are mandatory allowing you to gradually migrate your existing API to Yahapi or just use the parts you need/like.
+In this example no properties were changed or moved, nor are any of them mandatory. This allows you to gradually migrate your existing API to Yahapi or just use the parts you need/like.
 
 Yahapi uses three reserved top-level keywords: `type`, `links` and `meta`. 
 
 * **Type** identifies the object as a resource (e.g. `order`) or as an embedded resource (e.g. `orderItem`) and tells the client how to process that resource.
-* **Links** is a collection of url's that may be of interest to the client.
-* **Meta** contains any meta-information about the resource, for example pagination.
+* **Links** is a collection of url's related to the resource that may be of interest to the client.
+* **Meta** contains any meta-information about the resource and is used primarily for pagination.
 
 # Why Yet Another Hypermedia type?
 

@@ -19,10 +19,17 @@ Adding hypermedia controls makes your API more fun to work with for your client.
 
 [JSON API](http://jsonapi.org/) is a big inspiration for Yahapi. Why you might consider using Yahapi instead is:
 
-* JSON API focusses heavily on a reserved `id` property and makes clever use of this to link resources to each other, whereas Yahapi leaves you free to pick your own identifier type. In many business domains identity schemes already exists (e.g. [EAN](http://en.wikipedia.org/wiki/International_Article_Number_(EAN))) which make for a more descriptive resource identifier. In addition a business key is often a compound key made up of two or more elements, in a JSON API this might be easily missed.
-* Yahapi foucsses on readability and simple clients whereas JSON API focusses on the use of smart clients:
+* JSON API focusses heavily on a reserved `id` property and makes clever use of this to link resources to each other, whereas Yahapi leaves you free to pick your own identifier type. In many business domains identity schemes already exist (e.g. [EAN](http://en.wikipedia.org/wiki/International_Article_Number_(EAN))) and resources may consist of a compound key which make for a more expressive resource identifier than `id`. For example, Yahapi considers the following valid:
+	
+		GET /persons/john
+		{
+			"name": "John"
+		}
 
-> JSON API is specifically focused around using those APIs with a smart client that knows how to cache documents it has already seen and avoid asking for them again. [FAQ](http://jsonapi.org/faq/)
+
+* Yahapi focusses on readability and simple clients where JSON API focusses on the use of smart clients:
+
+> JSON API is specifically focused around using those APIs with a smart client that knows how to cache documents it has already seen and avoid asking for them again. [JSON API FAQ](http://jsonapi.org/faq/)
 
 ## Why not use Yahapi?
 
@@ -45,33 +52,31 @@ There are many flavors of Hypermedia types, finding the right one can be a chall
 
 Yahapi does not use this because;
 
-1) Link headers are easy to miss when viewing the response in a web browser or even in a curl. By treating links as first-class citizens of your resource representation you really promote them to your client.
+1. Link headers are easy to miss when viewing the response in a web browser or even in a curl. By treating links as part of your resource representation you really promote them to your client.
 
-2) Link headers do not work well for embedded/nested resources, imagine the following response:
+2. Link headers do not work well for embedded/nested resources. Moving all links of the example below into a single HTTP header is not pragmatic.
 
-```
-GET /orders/43983
-{
-    "id": 43983,
-    "customerId": 914,
-    "type": "order",
-    "items": [
+        GET /orders/43983
         {
-            "id": "912332",
+            "id": 43983,
+            "customerId": 914,
+            "type": "order",
+            "items": [
+                {
+                    "id": "9122",
+                    "links": {
+                        "self": { "href": "https://api.example.com/orders/43983/items/9122" },
+                        "product": { "href": "https://api.example.com/products/EZ-21562" }
+                    }
+                }
+            ],
             "links": {
-                "self": { "href": "https://api.example.com/orders/43983/items/912332" },
-                "product": { "href": "https://api.example.com/products/EZ-21562" }
+                "self": { "href": "https://api.example.com/orders/43983" },
+                "customer": { "href": "https://api.example.com/customers/914" },
+                "items": { "href": "https://api.example.com/orders/43983/items" }
             }
         }
-    ],
-    "links": {
-        "self": { "href": "https://api.example.com/orders/43983" },
-        "customer": { "href": "https://api.example.com/customers/914" },
-        "items": { "href": "https://api.example.com/orders/43983/items" }
-    }
-}
-```
-Moving all these links to a single HTTP header is not pragmatic.
+
 
 ## Why support different types of resources in the same collection?
 
@@ -104,6 +109,16 @@ Imagine an order system that pulls products from different types of services; it
 The resource collection is homogeneous because it lists items with identical properties. The `type`  is there to allow higher-level services to interpret the collection's content. If a business service is responsible for automated food-ordering it will be interested in "fresh-foods" only and have no understanding of "books". Similarly a front-end client might decide based on the `type` to display items differently or filter them.
 
 The `type` is the key element for clients to understand how to interpret that resource.
+
+## Why use a rather verbose "self" link rather than simply "href"?
+
+A property `"href": "<url>"` replacing `"links": { "self": "<url>" }` would make your API easier to read, particularly if the `self` link is the only link returned by your resource or embedded resource. 
+
+Yahapi chose not to adopt `href` because:
+
+1. `href` may already be in use by existing API's.
+2. The convention of a `self`-link is widely promoted by most Hypermedia types.
+3. It is more consistent for the client when all links are represented the same way.
 
 ## Who have contributed to Yahapi?
 
