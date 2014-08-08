@@ -36,7 +36,7 @@ GET /orders/43983
 }
 ```
 
-Yahapi would like you to transform this to:
+The same resource in Yahapi might look something like this:
 
 ```
 GET /orders/43983

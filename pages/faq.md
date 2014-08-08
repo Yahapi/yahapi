@@ -120,6 +120,12 @@ Yahapi chose not to adopt `href` because:
 2. The convention of a `self`-link is widely promoted by most Hypermedia types.
 3. It is more consistent for the client when all links are represented the same way.
 
+## Why does Yahapi promote lowerCamelCase instead of snake_case?
+
+The reason is simple; JavaScript embraces [lowerCamelCase](http://nl.wikipedia.org/wiki/CamelCase) and because JSON originates from JavaScript it is a logical choice for your API style. 
+
+Please note *lowerCamelCase* style is only a recommendation but not mandatory.
+
 ## Who have contributed to Yahapi?
 
 The author of Yahapi is Niels Krijger (<mailto:niels@kryger.nl>).

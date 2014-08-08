@@ -68,9 +68,9 @@ Every resource object **SHOULD** contain a `links` property with a `self`-relati
 ## 2.3 meta
 A resource **MAY** contain a `meta` property.
 
-# 4 Collection resource
+# 3 Collection resource
 
-## 4.1 Element properties
+## 3.1 Element properties
 
 A collection resource **MUST** be homogeneous and contain only elements with the same properties. 
 
@@ -83,7 +83,7 @@ A collection resource **MUST** be homogeneous and contain only elements with the
 		]
 	}
 
-## 4.2 Element type
+## 3.2 Element type
 
 A collection resource **MAY** contain different `types` if all types share the same abstraction. In the following example all items share the same abstract `product`:
 
@@ -106,21 +106,21 @@ A collection resource **MAY** contain different `types` if all types share the s
 		]
 	}
 
-## 4.3 Pagination
+## 3.3 Pagination
 
-### 4.3.1
+### 3.3.1
 
-## 4.4 Ordering
+## 3.4 Ordering
 
 There are no strict rules about the default ordering of a collection, it may be ascending or descending and for any property that makes the most sense for your use case.
 
-### 4.4.1 Client specified sort
+### 3.4.1 Client specified sort
 
 A collection resource **MAY** support sorting criteria in a collection by adding a `sort` parameter to the query string.
 
 	GET /products?sort=type
 
-### 4.4.2 Ascending and descending
+### 3.4.2 Ascending and descending
 
 The default order of a `sort` query parameter **MUST** be ascending.
 
@@ -128,7 +128,7 @@ To sort a collection in descending order the value of a `sort` query parameter *
 
 	GET /products?sort=-expirationDate
 
-### 4.4.3 Multiple sort criteria
+### 3.4.3 Multiple sort criteria
 
 A collection resource supporting multiple sort criteria **SHOULD** allow multiple criteria in the `sort` query string separated by comma's:
 
@@ -136,9 +136,9 @@ A collection resource supporting multiple sort criteria **SHOULD** allow multipl
 
 The query string in the example above sorts products by `type` in ascending order first, and sorts all items of the same `type` by `expirationDate` in descending order.
 
-# 5 Embedded resources
+# 4 Embedded resources
 
-## 5.1 Embedded resource object identity
+## 4.1 Embedded resource object identity
 An embedded resource object MUST have at least a `type`, `links` or `meta` property or be referenced within the parent resource object in the their `links` with an identical name.
 
 	GET /persons/john
@@ -158,7 +158,7 @@ The example above shows a resource `person` with an embedded resource `address`.
 
 > Note: top-level resources are always identified as a resource and do not have these requirements.
 
-## 5.2 Embedded collection resource
+## 4.2 Embedded collection resource
 
 All elements of an embedded resource collection **MUST** have at least one `type`, `links` or `meta` property.
 
@@ -168,11 +168,29 @@ An embedded collection resource **SHOULD NOT** support ordering.
 
 An embedded collection resource should be kept simple and contain either the entire or most relevant subset of items. Embedding a collection resource is an optimization to support the most common use cases for your API, no more. Uncommon use cases should query the entire collection resource.
 
+# 5. Error codes
+
+## 5.1 error.code
+
+An error **MUST** contain an error code which is usually the same as the HTTP response code.
+
+	{
+		"error": {
+			"code": 404
+		}
+	}
+
+## 5.2 error.message
+
+
+
+## 5.3 error.errors[]
+
 # 6. Style
 
 ## 6.1. lowerCamelCase and snake_case
 
-Your API **SHOULD** use [lowerCamelCase](http://en.wikipedia.org/wiki/CamelCase) or [snake_case](http://en.wikipedia.org/wiki/Snake_case) for resource property names.
+Your API **SHOULD** use [lowerCamelCase](http://en.wikipedia.org/wiki/CamelCase) for resource property names.
 
 Your API **MUST** maintain a consistent format.
 

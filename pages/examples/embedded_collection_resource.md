@@ -4,7 +4,7 @@ An embedded collection resource is a collection within a single resource object 
 
 Embedded collection resources are primarily used to minimize network requests between client and server.
 
-Embedded collection resources should be used for the most common requests to your resources and should be kept simple. Yahapi does not support paginating or sorting embedded collection resources.
+Yahapi does not support paginating or sorting embedded collection resources. Embedded collection resources are an optimization for the most common API requests, they are not intended to replace collection resources.
 
 **Example**
 
