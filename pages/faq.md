@@ -33,15 +33,15 @@ Adding hypermedia controls makes your API more fun to work with for your client.
 
 ## Why not use Yahapi?
 
-Obviously we think Yahapi is great, but in one use case some Hypermedia type may work better than others. For example:
+Obviously we think Yahapi is great, but in one use case a particular Hypermedia type may work better than others. For example:
 
-* If you're working with an existing API and can't afford to change anything other than adding properties you should look at [HAL](http://stateless.co/hal_specification.html).
+* If you're working with an existing API and can't afford to change anything other than adding new properties you should look at [HAL](http://stateless.co/hal_specification.html).
 * If you want client software that intelligently tries to cache requests and minimize redundant requests, look at [JSON API](http://jsonapi.org/). 
 * If you need a very comprehensive and formal approach to linking relationships between resources, have a look at [JSON+LD](http://json-ld.org/).
 * If you'd like to serialize requests and responses directly to persistable entities, look at [Siren](https://github.com/kevinswiber/siren).
 * If your API focusses on collection resources and you want to dynamically provide new search capabilities to your clients, have a look at [Collection+JSON](http://amundsen.com/media-types/collection/).
 
-There are many flavors of Hypermedia types, finding the right one can be a challenge. We found none of the above really fits a wide range of common use cases. Yahapi is the result.
+There are many flavors of Hypermedia types, finding the right one can be a challenge. We found none of the above really fits a wide range of common use cases. Yahapi is our alternative.
 
 ## Why not use Web Linking (RFC 5988)?
 
@@ -54,7 +54,7 @@ Yahapi does not use this because;
 
 1. Link headers are easy to miss when viewing the response in a web browser or even in a curl. By treating links as part of your resource representation you really promote them to your client.
 
-2. Link headers do not work well for embedded/nested resources. Moving all links of the example below into a single HTTP header is not pragmatic.
+2. Link headers do not work well for embedded resources. Moving all links of the example below into a single HTTP header is not pragmatic.
 
         GET /orders/43983
         {
@@ -106,11 +106,11 @@ Imagine an order system that pulls products from different types of services; it
     ],
 …
 ```
-The resource collection is homogeneous because it lists items with identical properties. The `type`  is there to allow higher-level services to interpret the collection's content. If a business service is responsible for automated food-ordering it will be interested in "fresh-foods" only and have no understanding of "books". Similarly a front-end client might decide based on the `type` to display items differently or filter them.
+The resource collection is homogeneous because it lists items with identical properties. The `type`  is there to allow higher-level services to interpret the collection's content. For example, if a business service is responsible for automated food-ordering it will be interested in "fresh-foods" only and have no understanding of "books". Similarly a front-end client might decide based on the `type` to display items differently or filter them.
 
 The `type` is the key element for clients to understand how to interpret that resource.
 
-## Why use a rather verbose "self" link rather than simply "href"?
+## Why use a verbose "self" link rather than simply "href"?
 
 A property `"href": "<url>"` replacing `"links": { "self": "<url>" }` would make your API easier to read, particularly if the `self` link is the only link returned by your resource or embedded resource. 
 
@@ -122,7 +122,7 @@ Yahapi chose not to adopt `href` because:
 
 ## Why does Yahapi promote lowerCamelCase instead of snake_case?
 
-The reason is simple; JavaScript embraces [lowerCamelCase](http://nl.wikipedia.org/wiki/CamelCase) and because JSON originates from JavaScript it is a logical choice for your API style. 
+JavaScript embraces [lowerCamelCase](http://nl.wikipedia.org/wiki/CamelCase) and because JSON originates from JavaScript it is a logical choice for your API style. 
 
 Please note *lowerCamelCase* style is only a recommendation but not mandatory.
 
