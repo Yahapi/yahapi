@@ -65,7 +65,7 @@ A resource object **SHOULD** contain a `links` property containing valid URL's k
 
 Every resource object **SHOULD** contain a `links` property with a `self`-relationship.
 
-## 2.2.1 links.href
+### 2.2.1 links.href
 
 Every `links` property **MUST** contain a `href`property (hypertext reference) with a valid URL.
 
@@ -176,23 +176,94 @@ An embedded collection resource **SHOULD NOT** support ordering.
 
 An embedded collection resource should be kept simple and contain either the entire or most relevant subset of items. Embedding a collection resource is an optimization to support the most common use cases for your API, no more. Uncommon use cases should query the entire collection resource.
 
-# 5. Error codes
+# 5. Errors
 
-## 5.1 error.code
+An error object **SHOULD** be returned when the HTTP status code is in the 400 or 500 range.
 
-An error **MUST** contain an error code which is usually the same as the HTTP response code.
+Error details **SHOULD** be wrapped in an `error` object.
+
+Example:
 
 	{
 		"error": {
-			"code": 404
+			"status": 400,
+			"code": "ValidationError",
+			"message": "One or more request parameters are invalid",
+			"errors": [
+				{
+					"code": "INVALID_TYPE",
+					"path": "/parentId",
+					"message": "invalid type: string (expected number)"
+				}, {
+					"code": "NUMBER_MAXIMUM_DECIMALS",
+					"path": "/amount",
+					"message": "must have no more than 2 decimals"
+				}
+			]
 		}
 	}
 
-## 5.2 error.message
+A service **MAY** adopt a different error format.
 
+## 5.1 error.status
 
+An error **SHOULD** contain a `status` property which is identical to the HTTP response code.
 
-## 5.3 error.errors[]
+## 5.2 error.code
+
+An error **SHOULD** contain a `code` property with an error description suitable for machine interpretation.
+
+## 5.3 error.message
+
+An error **SHOULD** contain a `message` property with an error description in a human-readable format.
+
+## 5.4 error.errors[]
+
+An error **MAY** contain an `errors` property with a list of sub-errors.
+
+Sub-errors are used when multiple errors were detected that fall within the same category.
+
+A sub-error is a normal error but **SHOULD NOT** contain `status` or `errors` properties.
+
+## 5.5 error.path
+
+An error **MAY** contain a `path` property to allow the client identify which request parameter was the cause of the problem.
+
+Nested objects in `error.path` are separated by a slash (e.g. `/root/nested/property`).
+
+Array elements in `error.path` are identified by their index between square brackets starting with zero (e.g. `/root/children[0]/name`).
+
+Assume the following request:
+
+	{
+		"files": [
+			{
+				"id": "123",
+				"extension": "png"
+			},
+			{
+				"id": 56,
+				"extension": "png"
+			}
+		]
+	}
+
+The request above might return the following response:
+
+	{
+		"error": {
+			"status": 400,
+			"code": "ValidationError",
+			"message": "One or more request parameters are invalid",
+			"errors": [
+				{
+					"code": "INVALID_TYPE",
+					"path": "/files[1]/id",
+					"message": "invalid type: type (expected string)"
+				}
+			]
+		}
+	}
 
 # 6. Style and encoding
 
