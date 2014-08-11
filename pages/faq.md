@@ -120,16 +120,18 @@ Yahapi chose not to adopt `href` because:
 2. The convention of a `self`-link is widely promoted by most Hypermedia types.
 3. It is more consistent for the client when all links are represented the same way.
 
-## Why does Yahapi promote lowerCamelCase instead of snake_case?
+## Why does Yahapi not choose between lowerCamelCase or snake_case?
 
-JavaScript embraces [lowerCamelCase](http://nl.wikipedia.org/wiki/CamelCase) and because JSON originates from JavaScript it is a logical choice for your API style. 
+There is no single standard for JSON API formats; [Google promotes lowerCamelCase](https://google-styleguide.googlecode.com/svn/trunk/jsoncstyleguide.xml#Property_Name_Format), [Amazon AWS favors UpperCamelCase](http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/frames.html), [Facebook uses snake_case](https://developers.facebook.com/docs/), just like the [Twitter API](https://dev.twitter.com/docs/api) and the [US Government](https://github.com/18F/api-standards).
 
-Please note *lowerCamelCase* style is only a recommendation but not mandatory.
+Both lowerCamelCase and snake_case are firmly embedded as API styles and no clear winner is emerging, only UpperCamelCase is considered non-standard.
 
-## Who have contributed to Yahapi?
+## Who contributed to Yahapi?
 
 The author of Yahapi is Niels Krijger (<mailto:niels@kryger.nl>).
 
 ## How can I contribute?
 
-Please do! Yahapi is hosted on [Github](https://github.com/nielskrijger/yahapi), if you feel like contributing open up an [issue](https://github.com/nielskrijger/yahapi/issues) to start off a discussion or create a [Pull Request](https://github.com/nielskrijger/yahapi/pulls) with your suggested changes.
+Please do! 
+
+Yahapi is hosted on [Github](https://github.com/nielskrijger/yahapi), if you feel like contributing open up an [issue](https://github.com/nielskrijger/yahapi/issues) to start off a discussion or create a [Pull Request](https://github.com/nielskrijger/yahapi/pulls) with your suggested changes.
