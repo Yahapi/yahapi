@@ -69,15 +69,16 @@ Every resource object **SHOULD** contain a `links` property with a `self`-relati
 
 ### 2.2.1 links.href
 
-Every `links` property **MUST** contain a `href`property (hypertext reference) with a valid URL.
+Every `links` property **MUST** contain a `href` property (hypertext reference) with a valid URL.
 
 A hypertext reference **SHOULD** contain an absolute url. 
 
 Using absolute urls enables the client to fully resolve the hypertext reference rather than having to prefix an assumed domain.
 
 ## 2.3 meta
-A resource **MAY** contain a `meta` property.
+A resource **MAY** contain a `meta` property containing properties describing the design and specification of the resource object.
 
+The purpose of meta(data) is to facilitate discovery of relevant information about the resource object.
 
 # 3 Collection resource
 
