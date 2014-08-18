@@ -80,7 +80,10 @@ Using absolute urls enables the client to fully resolve the hypertext reference 
 ## 2.3 meta
 A resource **MAY** contain a `meta` property.
 
+
 # 3 Collection resource
+
+A collection resource groups resource objects and may support ordering them, filtering them and/or paginating through them.
 
 ## 3.1 Element properties
 
