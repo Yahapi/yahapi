@@ -9,9 +9,13 @@
 
 > The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED",  "MAY", and "OPTIONAL" in this document are to be interpreted as described in [RFC 2119](http://tools.ietf.org/html/rfc2119).
 
-# 1 Media type JSON
+# 1 General
+
+# 1.1 Media type JSON
 
 The media type of a Yahapi document is **`application/json`**.
+
+There are no plans to register a Yahapi-specific media type.
 
 # 2 Single resource object
 
@@ -82,7 +86,7 @@ A resource **MAY** contain a `meta` property.
 
 A collection resource **MUST** be homogeneous and contain only elements with the same properties. 
 
-*The following is invalid*:
+*The following is invalid if either `items.name` or `items.id` are mandatory*:
 
 	{
 		"items": [
@@ -116,11 +120,50 @@ A collection resource **MAY** contain different `types` if all types share the s
 
 ## 3.3 Pagination
 
-### 3.3.1
+A collection resource too large to fit in a single message usually supports some way to paginate through the collection results.
+
+A response of a paginated collection resource looks something like this:
+
+	GET /products?offset=20&limit=10
+	
+	{
+		"products": [ … ],
+		"links": {
+			"next": { "href": "https://api.example.com/products?offset=30&limit=10" },
+			"prev": { "href": "https://api.example.com/products?offset=10&limit=10" }
+		},
+		"meta": {
+			"total": 46,
+			"limit": 10,
+			"offset": 20
+		}
+	}
+
+### 3.3.1 URL request parameters
+
+A paginated collection resource **SHOULD** support `offset` and `limit` url query parameters to paginate through a collection resource.
+
+	GET /products?offset=20&limit=10
+
+### 3.3.2 links.next and links.previous
+
+A paginated collection resource **MUST** return `links.next` and `links.prev` to paginate through the collection unless there is no next or previous page.
+
+### 3.3.3 meta.total
+
+A paginated collection resource **SHOULD** return the number of items available in the collection using `meta.total`.
+
+### 3.3.4 meta.limit
+
+A paginated collection resource **SHOULD** return the number of records returned using `meta.limit`.
+
+### 3.3.5 meta.offset
+
+A paginated collection resource **SHOULD** return the number of items skipped using `meta.offset`.
 
 ## 3.4 Ordering
 
-There are no strict rules about the default ordering of a collection, it may be ascending or descending and for any property that makes the most sense for your use case.
+There are no strict rules about the *default* ordering of a collection. A collection may be ordered by default in ascending or descending order for any property that makes the most sense for your use case.
 
 ### 3.4.1 Client sort
 
@@ -128,7 +171,7 @@ A collection resource **MAY** support client sort in a collection by adding a `s
 
 	GET /products?sort=type
 
-### 3.4.2 Ascending and descending
+### 3.4.2 Ascending or descending
 
 The default order of a `sort` query parameter **MUST** be ascending.
 
@@ -150,6 +193,7 @@ The query string in the example above sorts products by `type` in ascending orde
 An embedded resource object MUST have at least a `type`, `links` or `meta` property or be referenced within the parent resource object in the their `links` with an identical name.
 
 	GET /persons/john
+	
 	{
 		"name": "John",
 		"address": {
@@ -227,13 +271,11 @@ A sub-error is a normal error but **SHOULD NOT** contain `status` or `errors` pr
 
 ## 5.5 error.path
 
-An error **MAY** contain a `path` property to allow the client identify which request parameter was the cause of the problem.
+An error **MAY** contain a `path` property to let the client identify which request parameter was the cause of the problem.
 
 Nested objects in `error.path` are separated by a slash (e.g. `/root/nested/property`).
 
-Array elements in `error.path` are identified by their index between square brackets starting with zero (e.g. `/root/children[0]/name`).
-
-Assume the following request:
+Array elements in `error.path` are identified by their index between brackets starting with zero (e.g. `/root/children[0]/name`).
 
 	{
 		"files": [
@@ -248,7 +290,7 @@ Assume the following request:
 		]
 	}
 
-The request above might return the following response:
+The request above might return the following error response:
 
 	{
 		"error": {
@@ -291,6 +333,8 @@ Predictable API's are easier to parse in static languages and are better support
 
 All dates **MUST** be formatted using [ISO 8601](http://en.wikipedia.org/wiki/ISO_8601).
 
+Avoid unix timestamps.
+
 ## 6.4 Use HTTPS
 
 Your API **SHOULD** use HTTPS encrypting with SSL/TLS.
@@ -299,7 +343,28 @@ Your API **SHOULD** use HTTPS encrypting with SSL/TLS.
 
 If you need to support cross-domain requests you **SHOULD** use CORS, not JSONP.
 
-Only if you need to support old versions of some browser you may have to use JSONP instead.
+Only if you need to support old versions of a browser without CORS support you may have to use JSONP instead.
+
+## 6.6 Reserved words
+
+Javascript reserved keywords **SHOULD** be avoided;
+
+    boolean break byte
+    case catch char class const continue
+    debugger default delete do double
+    else enum export extends
+    false final finally float for function
+    goto
+    if implements import in instanceof int interface
+    let long
+    native new null
+    package private protected public
+    return
+    short static super switch synchronized
+    this throw throws transient true try typeof
+    var volatile void
+    while with
+    yield
 
 # Update History
 2014-08-06: First draft

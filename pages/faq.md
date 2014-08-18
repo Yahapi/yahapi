@@ -126,6 +126,16 @@ There is no single standard for JSON API formats; [Google promotes lowerCamelCas
 
 Both lowerCamelCase and snake_case are firmly embedded as API styles and no clear winner is emerging, only UpperCamelCase is considered non-standard.
 
+## Why does Yahapi promote limit and offset rather than paged results using cursor?
+
+There are roughly two ways to paginate through a collection, either by letting the client specify a page number or let the client set a limit and offset. Paging makes the most sense when there is a cursor held open (usually in the database), whereas limit and offset provide more flexibility to the client.
+
+Most web applications requests are handled by stateless web services that do not keep cursors open, instead each new collection resource request is processed independently of one another. Stateless web services are considered best practice.
+
+Because use cases that require the client to set a custom page size are fairly common Yahapi promotes paginating collection resources using limit/offset.
+
+Most of the pagination API style is optional and you can adopt your own pagination style when needed.
+
 ## Who contributed to Yahapi?
 
 The author of Yahapi is Niels Krijger (<mailto:niels@kryger.nl>).
