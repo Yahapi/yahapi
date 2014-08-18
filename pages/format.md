@@ -35,7 +35,7 @@ If no `type` property is specified the resource `type` **MAY** be inferred by th
 	
 	GET /products/1234
 	{
-		"href": "/products/1234"
+		"id": "1234"
 	}
 
 Full resource representations of elements in the same collection **MAY** contain different properties only if their type is different as well.
@@ -45,14 +45,12 @@ Full resource representations of elements in the same collection **MAY** contain
 		"type": "food",
 		"id": 9016,
 		"expirationDate": "2015-03-06",
-		"href": "https://api.example.com/products/9016"
 	}
 	
 	GET /products/9017
 	{
 		"type": "non-food",
 		"id": 9017,
-		"href": "https://api.example.com/products/9017"
 	}
 	
 ## 2.2 links
