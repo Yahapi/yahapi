@@ -11,7 +11,7 @@
 
 # 1 General
 
-# 1.1 Media type JSON
+## 1.1 Media type JSON
 
 The media type of a Yahapi document is **`application/json`**.
 
