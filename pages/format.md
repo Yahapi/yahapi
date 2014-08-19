@@ -55,7 +55,7 @@ Full resource representations of elements in the same collection **MAY** contain
 	
 ## 2.2 links
 
-A resource object **SHOULD** contain a `links` property containing valid URL's keyed by their [relationship](http://www.iana.org/assignments/link-relations/link-relations.xml) to the resource. 
+A resource object **SHOULD** contain a `links` property containing valid URLs keyed by their [relationship](http://www.iana.org/assignments/link-relations/link-relations.xml) to the resource. 
 
 	{
 		…
