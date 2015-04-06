@@ -87,20 +87,21 @@ Yahapi uses four reserved top-level keywords: `id`, `type`, `links` and `meta`.
 * **id**: the unique url parameter identifying the resource.
 * **Type** identifies the object as a resource (e.g. `order`) or as an embedded resource (e.g. `orderItem`) and tells the client how to process that resource.
 * **Links** is a collection of url's related to the resource that may be of interest to the client.
-* **Meta** contains any meta-information about the resource and is used primarily for pagination.
+* **Meta** contains any meta-information about the resource. Within the Yahapi design documentation it is used  for pagination primarily.
 
 # Why Yet Another Hypermedia type?
 
 In a [world](http://json-ld.org/) [full](http://stateless.co/hal_specification.html) [of](https://github.com/kevinswiber/siren) [hypermedia](http://amundsen.com/media-types/collection/) [types](http://jsonapi.org/) why choose Yahapi? 
 
-In our experience we found no current Hypermedia type is a practical standard; they are either too complex or lack features to fully drive your API design. The hypermedia that comes closest to being a full style- and hypermedia-guide is ([JSON API](http://jsonapi.org/)). While it is quite beautiful it requires an advanced server and smart client to make fully use of. 
+In our experience no current Hypermedia type is a practical standard. That is, none of them make your life easier. Most are either too much focused on a specific use case or lack features to fully drive your API design. 
+One hypermedia type that comes close to being a full style- and hypermedia-guide is [JSON API](http://jsonapi.org/). While JSON API is quite beautiful it requires an advanced server and smart client to make fully use of.
 
 Yahapi is designed to keep things simple. Yahapi adds hypermedia controls with limited modifications to the "naive" JSON REST design, promoting readability and simplicity.
 
-To this end Yahapi provides a list of guidelines for pagination, sorting, partial results and error formats; these guidelines should save you time Googling for best practices and make for a more consistent API.
+To this end Yahapi provides a list of guidelines for pagination, sorting, partial results and error formats; these guidelines should save you time searching for best practices and make for a more consistent API.
 
-All enabling your API clients to have more fun.
+Yahapi makes your clients have more fun integrating your service.
 
 # Contribute!
 
-Yahapi is a work in progress, if you feel like contributing open up an [issue](https://github.com/nielskrijger/yahapi/issues) to start off a discussion or create a [Pull Request](https://github.com/nielskrijger/yahapi/pulls) with your suggested changes.
+Yahapi is a work in progress, if you feel like contributing open up an [issue](https://github.com/yahapi/yahapi/issues) to start off a discussion or create a [Pull Request](https://github.com/yahapi/yahapi/pulls) with your suggested changes.
