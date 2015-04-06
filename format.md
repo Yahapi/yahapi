@@ -69,21 +69,17 @@ A resource object **SHOULD** contain a `links` property containing valid URLs ke
 {
   …
   "links": {
-    "self": { "href": "https://api.example.com/orders/001342" },
-    "payment": { "href": "https://api.example.com/payment/53415" }
+    "self": { "href": "/orders/001342" },
+    "payment": { "href": "/payment/53415" }
   }
 }
 ```
 
-Every resource object **SHOULD** contain a `links` property with a `self`-relationship.
+Every resource object **SHOULD** contain a `links` property with a `self`-link.
 
 ### 2.2.1 links.href
 
 Every `links` property **MUST** contain a `href` property (hypertext reference) with a valid URL.
-
-A hypertext reference **SHOULD** contain an absolute url.
-
-Using absolute urls enables the client to fully resolve the hypertext reference rather than having to prefix an assumed domain.
 
 ## 2.3 meta
 A resource **MAY** contain a `meta` property containing properties describing the design and specification of the resource object.
@@ -401,6 +397,7 @@ yield
 
 - Error response no longer wrapped within `error` object.
 - Weakened `error.status` requirement from SHOULD to MAY.
+- Removed absolute url requirement for `links`.
 
 2014-08-06: 
 
