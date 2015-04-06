@@ -2,7 +2,7 @@
 
 ### Description
 
-- **Date(s)**: 2014-08-06 (Created)
+- **Date(s)**: 2014-08-06 (Created), 2015-04-06 (Updated)
 - **Status**: Work in progress
 
 ### Conventions
@@ -21,49 +21,59 @@ There are no plans to register a Yahapi-specific media type.
 
 A Yahapi document **MUST** contain at least one resource. A minimum valid document is:
 
-  {}
+```
+{}
+```
 
 ## 2.1 type
 
 A resource object **SHOULD** have a `type` property:
 
-  {
-    "type": "product"
-  }
+```
+{
+  "type": "product"
+}
+```
 
 If no `type` property is specified the resource `type` **MAY** be inferred by the client based on the collection name. In the following example the `type` might be interpreted as `product`:
 
-  GET /products/1234
-  {
-    "id": "1234"
-  }
+```
+ GET /products/1234
+ {
+   "id": "1234"
+ }
+```
 
 Full resource representations of elements in the same collection **MAY** contain different properties only if their type is different as well.
 
-  GET /products/9016
-  {
-    "type": "food",
-    "id": 9016,
-    "expirationDate": "2015-03-06",
-  }
+```
+GET /products/9016
+{
+  "type": "food",
+  "id": 9016,
+  "expirationDate": "2015-03-06",
+}
 
-  GET /products/9017
-  {
-    "type": "non-food",
-    "id": 9017,
-  }
+GET /products/9017
+{
+  "type": "non-food",
+  "id": 9017,
+}
+```
 
 ## 2.2 links
 
 A resource object **SHOULD** contain a `links` property containing valid URLs keyed by their [relationship](http://www.iana.org/assignments/link-relations/link-relations.xml) to the resource.
 
-  {
-    …
-    "links": {
-      "self": { "href": "https://api.example.com/orders/001342" },
-      "payment": { "href": "https://api.example.com/payment/53415" }
-    }
+```
+{
+  …
+  "links": {
+    "self": { "href": "https://api.example.com/orders/001342" },
+    "payment": { "href": "https://api.example.com/payment/53415" }
   }
+}
+```
 
 Every resource object **SHOULD** contain a `links` property with a `self`-relationship.
 
@@ -90,35 +100,39 @@ A collection resource **MUST** be homogeneous and contain only elements with the
 
 *The following is invalid if either `items.name` or `items.id` are mandatory*:
 
-  {
-    "items": [
-      { name: "John" },
-      { id: 1234 }
-    ]
-  }
+```
+{
+  "items": [
+    { name: "John" },
+    { id: 1234 }
+  ]
+}
+```
 
 ## 3.2 Element type
 
 A collection resource **MAY** contain different `types` if all types share the same abstraction. In the following example all items share the same abstract `product`:
 
-  {
-    "products": [
-      {
-        "type": "food",
-        "id": 4897884,
-        "links": {
-          "self": { "href": "https://api.example.com/products/4897884" }
-        }
-      },
-      {
-        "type": "non-food",
-        "id": 9016,
-        "links": {
-          "self": { "href": "https://api.example.com/products/9016" }
-        }
+```
+{
+  "products": [
+    {
+      "type": "food",
+      "id": 4897884,
+      "links": {
+        "self": { "href": "https://api.example.com/products/4897884" }
       }
-    ]
-  }
+    },
+    {
+      "type": "non-food",
+      "id": 9016,
+      "links": {
+        "self": { "href": "https://api.example.com/products/9016" }
+      }
+    }
+  ]
+}
+```
 
 ## 3.3 Pagination
 
@@ -126,26 +140,30 @@ A collection resource too large to fit in a single message usually supports some
 
 A response of a paginated collection resource looks something like this:
 
-  GET /products?offset=20&limit=10
+```
+GET /products?offset=20&limit=10
 
-  {
-    "products": [ … ],
-    "links": {
-      "next": { "href": "https://api.example.com/products?offset=30&limit=10" },
-      "prev": { "href": "https://api.example.com/products?offset=10&limit=10" }
-    },
-    "meta": {
-      "total": 46,
-      "limit": 10,
-      "offset": 20
-    }
+{
+  "products": [ … ],
+  "links": {
+    "next": { "href": "https://api.example.com/products?offset=30&limit=10" },
+    "prev": { "href": "https://api.example.com/products?offset=10&limit=10" }
+  },
+  "meta": {
+    "total": 46,
+    "limit": 10,
+    "offset": 20
   }
+}
+```
 
 ### 3.3.1 URL request parameters
 
 A paginated collection resource **SHOULD** support `offset` and `limit` url query parameters to paginate through a collection resource.
 
-  GET /products?offset=20&limit=10
+```
+GET /products?offset=20&limit=10
+```
 
 ### 3.3.2 links.next and links.previous
 
@@ -171,7 +189,9 @@ There are no strict rules about the *default* ordering of a collection. A collec
 
 A collection resource **MAY** support client sort in a collection by adding a `sort` parameter to the query string.
 
-  GET /products?sort=type
+```
+GET /products?sort=type
+```
 
 ### 3.4.2 Ascending or descending
 
@@ -179,13 +199,17 @@ The default order of a `sort` query parameter **MUST** be ascending.
 
 To sort a collection in descending order the value of a `sort` query parameter **MUST** start with a minus symbol (`-`).
 
-  GET /products?sort=-expirationDate
+```
+GET /products?sort=-expirationDate
+```
 
 ### 3.4.3 Multiple sort criteria
 
 A collection resource supporting multiple sort criteria **SHOULD** allow multiple criteria in the `sort` query string separated by comma's:
 
-  GET /products?sort=type,-expirationDate
+```
+GET /products?sort=type,-expirationDate
+```
 
 The query string in the example above sorts products by `type` in ascending order first, and sorts all items of the same `type` by `expirationDate` in descending order.
 
@@ -194,19 +218,21 @@ The query string in the example above sorts products by `type` in ascending orde
 ## 4.1 Embedded resource object identity
 An embedded resource object MUST have at least a `type`, `links` or `meta` property or be referenced within the parent resource object in the their `links` with an identical name.
 
-  GET /persons/john
+```
+GET /persons/john
 
-  {
-    "name": "John",
-    "address": {
-      "street": "221A Baker Street",
-      "type": "home-address"
-    },
-    "links": {
-      "self": { "href": "/persons/john" },
-      "address": { "href": "https://api.example.com/addresses/16342" }
-    }
+{
+  "name": "John",
+  "address": {
+    "street": "221A Baker Street",
+    "type": "home-address"
+  },
+  "links": {
+    "self": { "href": "/persons/john" },
+    "address": { "href": "https://api.example.com/addresses/16342" }
   }
+}
+```
 
 The example above shows a resource `person` with an embedded resource `address`. The `address` is identified as a resource object based on the presence of a `type` property and because a `links` relationship exists with the same name as the object property.
 
@@ -228,28 +254,28 @@ An error object **MUST** be returned when the HTTP status code is in the 400 or 
 
 Example:
 
-  {
-    "status": 400,
-    "code": "ValidationError",
-    "message": "One or more request parameters are invalid",
-    "errors": [
-      {
-        "code": "INVALID_TYPE",
-        "path": "/parentId",
-        "message": "invalid type: string (expected number)"
-      }, {
-        "code": "NUMBER_MAXIMUM_DECIMALS",
-        "path": "/amount",
-        "message": "must have no more than 2 decimals"
-      }
-    ]
-  }
-
-A service **MAY** adopt a different error format.
+```
+{
+  "status": 400,
+  "code": "validation-error",
+  "message": "One or more request parameters are invalid",
+  "errors": [
+    {
+      "code": "INVALID_TYPE",
+      "path": "/parentId",
+      "message": "invalid type: string (expected number)"
+    }, {
+      "code": "NUMBER_MAXIMUM_DECIMALS",
+      "path": "/amount",
+      "message": "must have no more than 2 decimals"
+    }
+  ]
+}
+```
 
 ## 5.1 error.status
 
-An error **SHOULD** contain a `status` property which is identical to the HTTP response code.
+An error **MAY** contain a `status` property identical to the HTTP response code.
 
 ## 5.2 error.code
 
@@ -275,33 +301,37 @@ Nested objects in `error.path` are separated by a slash (e.g. `/root/nested/prop
 
 Array elements in `error.path` are identified by their index between brackets starting with zero (e.g. `/root/children[0]/name`).
 
-  {
-    "files": [
-      {
-        "id": "123",
-        "extension": "png"
-      },
-      {
-        "id": 56,
-        "extension": "png"
-      }
-    ]
-  }
+```
+{
+  "files": [
+    {
+      "id": "123",
+      "extension": "png"
+    },
+    {
+      "id": 56,
+      "extension": "png"
+    }
+  ]
+}
+```
 
 The request above might return the following error response:
 
-  {
-    "status": 400,
-    "code": "ValidationError",
-    "message": "One or more request parameters are invalid",
-    "errors": [
-      {
-        "code": "INVALID_TYPE",
-        "path": "/files[1]/id",
-        "message": "invalid type: type (expected string)"
-      }
-    ]
-  }
+```
+{
+  "status": 400,
+  "code": "ValidationError",
+  "message": "One or more request parameters are invalid",
+  "errors": [
+    {
+      "code": "INVALID_TYPE",
+      "path": "/files[1]/id",
+      "message": "invalid type: type (expected string)"
+    }
+  ]
+}
+```
 
 # 6. Style and encoding
 
@@ -309,7 +339,9 @@ The request above might return the following error response:
 
 Your character encoding **MUST** be UTF-8.
 
-  Content-Type: application/json; charset=utf-8
+```
+Content-Type: application/json; charset=utf-8
+```
 
 ## 6.1 lowerCamelCase or snake_case
 
@@ -345,22 +377,31 @@ Only if you need to support old versions of a browser without CORS support you m
 
 Javascript reserved keywords **SHOULD** be avoided;
 
-    boolean break byte
-    case catch char class const continue
-    debugger default delete do double
-    else enum export extends
-    false final finally float for function
-    goto
-    if implements import in instanceof int interface
-    let long
-    native new null
-    package private protected public
-    return
-    short static super switch synchronized
-    this throw throws transient true try typeof
-    var volatile void
-    while with
-    yield
+```
+boolean break byte
+case catch char class const continue
+debugger default delete do double
+else enum export extends
+false final finally float for function
+goto
+if implements import in instanceof int interface
+let long
+native new null
+package private protected public
+return
+short static super switch synchronized
+this throw throws transient true try typeof
+var volatile void
+while with
+yield
+```
 
 # Update History
-2014-08-06: First draft
+2015-04-06: 
+
+- Error response no longer wrapped within `error` object.
+- Weakened `error.status` requirement from SHOULD to MAY.
+
+2014-08-06: 
+
+- First draft
