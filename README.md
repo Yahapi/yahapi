@@ -9,8 +9,6 @@ If you're looking for a pragmatic Hypermedia-enabled REST convention for your pr
 - … define how to return partial results;
 - … sort and paginate collections.
 
-Read more about Yahapi on <http://www.yahapi.com>.
-
 # Please contribute!
 
 Yahapi is a work in progress, if you feel like contributing open up an [issue](https://github.com/nielskrijger/yahapi/issues) to start off a discussion or create a [Pull Request](https://github.com/nielskrijger/yahapi/pulls) with your suggested changes.
