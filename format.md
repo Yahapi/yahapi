@@ -44,7 +44,7 @@ If no `type` property is specified the resource `type` **MAY** be inferred by th
  }
 ```
 
-Full resource representations of elements in the same collection **MAY** contain different properties only if their type is different as well.
+Full resource representations of elements in the same collection **SHOULD** contain different properties only if their type is different as well.
 
 ```
 GET /products/9016
@@ -393,12 +393,13 @@ yield
 ```
 
 # Update History
-2015-04-06: 
+2015-04-06:
 
 - Error response no longer wrapped within `error` object.
 - Weakened `error.status` requirement from SHOULD to MAY.
 - Removed absolute url requirement for `links`.
+- Strengthened resource type definition from MAY to SHOULD
 
-2014-08-06: 
+2014-08-06:
 
 - First draft
