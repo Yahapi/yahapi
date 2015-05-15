@@ -27,7 +27,7 @@ A Yahapi document **MUST** contain at least one resource. A minimum valid docume
 
 ## 2.1 type
 
-A resource object **SHOULD** have a `type` property:
+A resource object **MAY** have a `type` property:
 
 ```
 {
@@ -35,16 +35,26 @@ A resource object **SHOULD** have a `type` property:
 }
 ```
 
-If no `type` property is specified the resource `type` **MAY** be inferred by the client based on the collection name. In the following example the `type` might be interpreted as `product`:
+Full resource representations of elements in the same collection **SHOULD NOT** contain different properties if their type is the same.
+
+The following is correct:
 
 ```
- GET /products/1234
- {
-   "id": "1234"
- }
+GET /products/9016
+{
+  "type": "food",
+  "id": 9016,
+  "expirationDate": "2015-03-06"
+}
+
+GET /products/9017
+{
+  "type": "non-food",
+  "id": 9017
+}
 ```
 
-Full resource representations of elements in the same collection **SHOULD** contain different properties only if their type is different as well.
+The following is incorrect:
 
 ```
 GET /products/9016
@@ -56,14 +66,14 @@ GET /products/9016
 
 GET /products/9017
 {
-  "type": "non-food",
-  "id": 9017,
+  "type": "food",
+  "id": 9017
 }
 ```
 
 ## 2.2 links
 
-A resource object **SHOULD** contain a `links` property containing valid URLs keyed by their [relationship](http://www.iana.org/assignments/link-relations/link-relations.xml) to the resource.
+A resource object **SHOULD** contain a `links` property containing valid URLs keyed by their [relationship](http://www.iana.org/assignments/link-relations/link-relations.xml) relative to the current resource.
 
 ```
 {
@@ -75,24 +85,27 @@ A resource object **SHOULD** contain a `links` property containing valid URLs ke
 }
 ```
 
-Every resource object **SHOULD** contain a `links` property with a `self`-link.
+When a `link` property is set it **SHOULD** contain a `self`-link.
 
-### 2.2.1 links.href
+### 2.2.1 links.*.href
 
-Every `links` property **MUST** contain a `href` property (hypertext reference) with a valid URL.
+Every `links` object **MUST** contain a `href` property (hypertext reference) with a valid URL.
+
+### 2.2.2 links.*.*
+
+A `links` object **MAY** contain additional properties for the purpose of content negation.
 
 ## 2.3 meta
-A resource **MAY** contain a `meta` property containing properties describing the design and specification of the resource object.
 
-The purpose of meta(data) is to facilitate discovery of relevant information about the resource object.
+A resource **MAY** contain a `meta` property with properties describing the design and specification of the resource object.
 
 # 3 Collection resource
 
-A collection resource groups resource objects and may support ordering them, filtering them and/or paginating through them.
+A collection resource is a list of resource objects and may support ordering, filtering and/or paginating through them.
 
 ## 3.1 Element properties
 
-A collection resource **MUST** be homogeneous and contain only elements with the same properties.
+A collection resource **MUST** be homogeneous and contain only elements with a shared set of properties.
 
 *The following is invalid if either `items.name` or `items.id` are mandatory*:
 
@@ -107,7 +120,7 @@ A collection resource **MUST** be homogeneous and contain only elements with the
 
 ## 3.2 Element type
 
-A collection resource **MAY** contain different `types` if all types share the same abstraction. In the following example all items share the same abstract `product`:
+A collection resource **MAY** contain different `types` if all types share the same abstraction. In the following example all items are considered a `product`:
 
 ```
 {
@@ -115,16 +128,11 @@ A collection resource **MAY** contain different `types` if all types share the s
     {
       "type": "food",
       "id": 4897884,
-      "links": {
-        "self": { "href": "https://api.example.com/products/4897884" }
-      }
+      "expirationDate": "2015-03-06"
     },
     {
       "type": "non-food",
-      "id": 9016,
-      "links": {
-        "self": { "href": "https://api.example.com/products/9016" }
-      }
+      "id": 9016
     }
   ]
 }
@@ -359,36 +367,13 @@ Your API **SHOULD** use HTTPS encrypting with SSL/TLS.
 
 If you need to support cross-domain requests you **SHOULD** use CORS, not JSONP.
 
-Only if you need to support old versions of a browser without CORS support you may have to use JSONP instead.
-
-## 6.6 Reserved words
-
-Javascript reserved keywords **SHOULD** be avoided;
-
-```
-boolean break byte
-case catch char class const continue
-debugger default delete do double
-else enum export extends
-false final finally float for function
-goto
-if implements import in instanceof int interface
-let long
-native new null
-package private protected public
-return
-short static super switch synchronized
-this throw throws transient true try typeof
-var volatile void
-while with
-yield
-```
-
 # Update History
 
 2015-05-15:
 
 - Removed `error.status` property.
+- Removed reserved words.
+- Links are allowed to contain additional properties for the purpose of content negotiation.
 
 2015-04-06:
 
