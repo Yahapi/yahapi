@@ -42,3 +42,5 @@ GET /orders/43983/items?offset=10&limit=10
    }
 }
 ```
+
+### TODO add next/previous/first/last links...

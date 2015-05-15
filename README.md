@@ -77,23 +77,23 @@ GET /orders/43983
         "items": { "href": "/orders/43983/items" }
     },
     "meta": {
-    	"retrievedOn": "2014-08-06T11:38:24.162Z"
-	 }
+      "retrievedOn": "2014-08-06T11:38:24.162Z"
+   }
 }
 ```
 
-Yahapi uses four reserved top-level keywords: `id`, `type`, `links` and `meta`. 
+Yahapi uses four reserved top-level keywords: `id`, `type`, `links` and `meta`.
 
 * **id**: the unique url parameter identifying the resource.
-* **Type** identifies the object as a resource (e.g. `order`) or as an embedded resource (e.g. `orderItem`) and tells the client how to process that resource.
-* **Links** is a collection of url's related to the resource that may be of interest to the client.
-* **Meta** contains any meta-information about the resource. Within the Yahapi design documentation it is used  for pagination primarily.
+* **type**: identifies the object as a resource (e.g. `order`) or as an embedded resource (e.g. `orderItem`) and tells the client how to process that resource.
+* **links**: is a collection of url's related to the resource that may be of interest to the client.
+* **meta**: contains any meta-information about the resource such as pagination.
 
 # Why Yet Another Hypermedia type?
 
-In a [world](http://json-ld.org/) [full](http://stateless.co/hal_specification.html) [of](https://github.com/kevinswiber/siren) [hypermedia](http://amundsen.com/media-types/collection/) [types](http://jsonapi.org/) why choose Yahapi? 
+In a [world](http://json-ld.org/) [full](http://stateless.co/hal_specification.html) [of](https://github.com/kevinswiber/siren) [hypermedia](http://amundsen.com/media-types/collection/) [types](http://jsonapi.org/) why choose Yahapi?
 
-In our experience no current Hypermedia type is a practical standard. That is, none of them make your life easier. Most are either too much focused on a specific use case or lack features to fully drive your API design. 
+In our experience no current Hypermedia type is a practical standard. That is, none of them make your life easier. Most are either too much focused on a specific use case or lack features to fully drive your API design.
 One hypermedia type that comes close to being a full style- and hypermedia-guide is [JSON API](http://jsonapi.org/). While JSON API is quite beautiful it requires an advanced server and smart client to make fully use of.
 
 Yahapi is designed to keep things simple. Yahapi adds hypermedia controls with limited modifications to the "naive" JSON REST design, promoting readability and simplicity.

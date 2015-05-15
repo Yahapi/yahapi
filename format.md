@@ -27,15 +27,9 @@ A Yahapi document **MUST** contain at least one resource. A minimum valid docume
 
 ## 2.1 type
 
-A resource object **MAY** have a `type` property:
+A resource object **MUST** have a `type` property if it contains different properties than other resources in the same collection.
 
-```
-{
-  "type": "product"
-}
-```
-
-Full resource representations of elements in the same collection **SHOULD NOT** contain different properties if their type is the same.
+All resource object with the same `type` **MUST** have the same set of properties.
 
 The following is correct:
 
@@ -54,14 +48,14 @@ GET /products/9017
 }
 ```
 
-The following is incorrect:
+The following is incorrect assuming `expirationDate` is mandatory:
 
 ```
 GET /products/9016
 {
   "type": "food",
   "id": 9016,
-  "expirationDate": "2015-03-06",
+  "expirationDate": "2015-03-06"
 }
 
 GET /products/9017
@@ -151,7 +145,7 @@ GET /products?offset=20&limit=10
   "products": [ … ],
   "links": {
     "next": { "href": "https://api.example.com/products?offset=30&limit=10" },
-    "prev": { "href": "https://api.example.com/products?offset=10&limit=10" }
+    "previous": { "href": "https://api.example.com/products?offset=10&limit=10" }
   },
   "meta": {
     "total": 46,
@@ -171,7 +165,7 @@ GET /products?offset=20&limit=10
 
 ### 3.3.2 links.next and links.previous
 
-A paginated collection resource **MUST** return `links.next` and `links.prev` to paginate through the collection unless there is no next or previous page.
+A paginated collection resource **MUST** return `links.next` and `links.previous` to paginate through the collection unless there is no next or previous page.
 
 ### 3.3.3 meta.total
 
@@ -374,13 +368,15 @@ If you need to support cross-domain requests you **SHOULD** use CORS, not JSONP.
 - Removed `error.status` property.
 - Removed reserved words.
 - Links are allowed to contain additional properties for the purpose of content negotiation.
+- `prev` link renamed to `previous`.
+- Strengthened resource type requirement from SHOULD to MUST.
 
 2015-04-06:
 
 - Error response no longer wrapped within `error` object.
 - Weakened `error.status` requirement from SHOULD to MAY.
 - Removed absolute url requirement for `links`.
-- Strengthened resource type definition from MAY to SHOULD
+- Strengthened resource type requirement from MAY to SHOULD.
 
 2014-08-06:
 
