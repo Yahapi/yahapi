@@ -2,7 +2,7 @@
 
 ### Description
 
-- **Date(s)**: 2014-08-06 (Created), 2015-04-06 (Updated)
+- **Date(s)**: 2014-08-06 (Created), 2015-04-06 (Updated), 2015-05-15 (Updated)
 - **Status**: Work in progress
 
 ### Conventions
@@ -246,7 +246,9 @@ An embedded collection should be kept simple and contain either the entire or mo
 
 # 5. Errors
 
-An error object **MUST** be returned when the HTTP status code is in the 400 or 500 range.
+An error object **MUST** be returned when the HTTP status code is in the 400-499.
+
+An error object **SHOULD** be returned when the HTTP status code is 500-599.
 
 Example:
 
@@ -256,11 +258,11 @@ Example:
   "message": "One or more request parameters are invalid",
   "errors": [
     {
-      "code": "INVALID_TYPE",
+      "code": "invalid-type",
       "path": "/parentId",
       "message": "invalid type: string (expected number)"
     }, {
-      "code": "NUMBER_MAXIMUM_DECIMALS",
+      "code": "maximum-decimals",
       "path": "/amount",
       "message": "must have no more than 2 decimals"
     }
@@ -383,6 +385,7 @@ yield
 ```
 
 # Update History
+
 2015-05-15:
 
 - Removed `error.status` property.
