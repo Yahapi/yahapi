@@ -238,13 +238,11 @@ The example above shows a resource `person` with an embedded resource `address`.
 
 ## 4.2 Embedded collection resource
 
-All elements of an embedded resource collection **MUST** have at least one `type`, `links` or `meta` property.
-
 An embedded collection resource **SHOULD NOT** support pagination.
 
 An embedded collection resource **SHOULD NOT** support ordering.
 
-An embedded collection should be kept simple and contain either the entire or most relevant subset of items. Embedding a collection resource is an optimization to support the most common use cases for your API, no more. Uncommon use cases should query the entire collection resource.
+An embedded collection should be kept simple and contain either the entire or most relevant subset of items. Embedding a collection resource is an optimization to support the most common use cases for your API, no more.
 
 # 5. Errors
 
