@@ -249,9 +249,9 @@ An embedded collection should be kept simple and contain either the entire or mo
 
 # 5. Errors
 
-An error object **MUST** be returned when the HTTP status code is in the 400-499.
+An error object **MUST** be returned when the HTTP status code is in the 400-499 range.
 
-An error object **SHOULD** be returned when the HTTP status code is 500-599.
+An error object **SHOULD** be returned when the HTTP status code is in the 500-599 range.
 
 Example:
 
