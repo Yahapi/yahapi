@@ -2,7 +2,6 @@
 
 ### Description
 
-- **Date(s)**: 2014-08-06 (Created), 2015-04-06 (Updated), 2015-05-15 (Updated)
 - **Status**: Work in progress
 
 ### Conventions
