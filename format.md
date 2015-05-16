@@ -169,7 +169,7 @@ A paginated collection resource **MUST** return `links.next` and `links.previous
 
 ### 3.3.3 meta.total
 
-A paginated collection resource **SHOULD** return the number of items available in the collection using `meta.total`.
+A paginated collection resource **MAY** return the number of items available in the collection using `meta.total`.
 
 ### 3.3.4 meta.limit
 
@@ -178,6 +178,10 @@ A paginated collection resource **SHOULD** return the number of records returned
 ### 3.3.5 meta.offset
 
 A paginated collection resource **SHOULD** return the number of items skipped using `meta.offset`.
+
+### 3.3.5 meta.size
+
+A paginated collection resource **MAY** return the number of items returned in the response using `meta.size`.
 
 ## 3.4 Ordering
 
@@ -360,6 +364,11 @@ Your API **SHOULD** use HTTPS encrypting with SSL/TLS.
 If you need to support cross-domain requests you **SHOULD** use CORS, not JSONP.
 
 # Update History
+
+2015-05-16:
+
+- Weakened `meta.total` from SHOULD to MAY.
+- Added `meta.size` which MAY contain the number of items returned in the response.
 
 2015-05-15:
 
