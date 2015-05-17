@@ -216,8 +216,15 @@ The query string in the example above sorts products by `type` in ascending orde
 
 # 4 Embedded resources
 
-## 4.1 Embedded resource object identity
-An embedded resource object MUST have at least a `type`, `links` or `meta` property or be referenced within the parent resource object in the their `links` with an identical name.
+An object or array inside a resource representation is referred to as an embedded resource.
+
+Embedding resources in a response can simplify client logic, save bandwith and reduce network latency. Usually embedded resources have a strong relationship with the host resource.
+
+## 4.1 Embedded resource identity
+
+An embedded resource object **MAY** have a `type`, `links`, `link` and/or `meta` property.
+
+An embedded resource **MAY** be referenced within the host resource object in the their `links` with a name identical to the embedded resource key.
 
 ```
 GET /persons/john
@@ -235,9 +242,7 @@ GET /persons/john
 }
 ```
 
-The example above shows a resource `person` with an embedded resource `address`. The `address` is identified as a resource object based on the presence of a `type` property and because a `links` relationship exists with the same name as the object property.
-
-> Note: top-level resources are always identified as a resource and do not have these requirements.
+The example above shows the resource `person` with an embedded resource `address`.
 
 ## 4.2 Embedded collection resource
 
@@ -245,7 +250,7 @@ An embedded collection resource **SHOULD NOT** support pagination.
 
 An embedded collection resource **SHOULD NOT** support ordering.
 
-An embedded collection should be kept simple and contain either the entire or most relevant subset of items. Embedding a collection resource is an optimization to support the most common use cases for your API, no more.
+An embedded collection resource should be kept simple and contain either the entire or most relevant subset of items. Embedding a collection resource is an optimization to support the most common use cases for your API, no more.
 
 # 5. Errors
 
@@ -363,6 +368,11 @@ Your API **SHOULD** use HTTPS encrypting with SSL/TLS.
 If you need to support cross-domain requests you **SHOULD** use CORS, not JSONP.
 
 # Update History
+
+2015-05-17:
+
+- Weakened embedded resource identity from MUST to MAY.
+- Revised text of embedded resource representation.
 
 2015-05-16:
 
