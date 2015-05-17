@@ -11,9 +11,9 @@ GET /orders/43983/items?offset=10&limit=10
 {
     "items": [
         {
-            "orderItemId": "912332",
-            "type": "orderItem",
-            "productId": "EZ-21562",
+            "id": "912332",
+            "type": "order_item",
+            "product_id": "EZ-21562",
             "amount": 3,
             "links": {
                 "self": { "href": "https://api.example.com/orders/43983/items/912332" },
@@ -21,9 +21,9 @@ GET /orders/43983/items?offset=10&limit=10
             }
         },
         {
-            "orderItemId": "912333",
-            "type": "orderItem",
-            "productId": "AF-49841",
+            "id": "912333",
+            "type": "order_item",
+            "product_id": "AF-49841",
             "amount": 1,
             "links": {
                 "self": { "href": "https://api.example.com/orders/43983/items/912333" },

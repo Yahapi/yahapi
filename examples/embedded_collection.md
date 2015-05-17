@@ -15,13 +15,13 @@ GET /orders/43983
 {
     "id": 43983,
     "created": "2014-08-05T16:22:16.992Z",
-    "customerId": "914",
+    "customer_id": "914",
     "type": "order",
-    "orderItems": [
+    "order_items": [
         {
-            "orderItemId": "912332",
+            "id": "912332",
             "type": "orderItem",
-            "productId": "EZ-21562",
+            "product_id": "EZ-21562",
             "amount": 3,
             "links": {
                 "self": { "href": "https://api.example.com/orders/43983/items/912332" },
@@ -29,9 +29,9 @@ GET /orders/43983
             }
         },
         {
-            "orderItemId": "912333",
+            "id": "912333",
             "type": "orderItem",
-            "productId": "AF-49841",
+            "product_id": "AF-49841",
             "amount": 1,
             "links": {
                 "self": { "href": "https://api.example.com/orders/43983/items/912333" },

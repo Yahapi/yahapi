@@ -20,19 +20,19 @@ Assume the following response:
 ```
 GET /orders/43983
 {
-    "oderId": 43983,
+    "order_id": 43983,
     "created": "2014-08-05 16:22:16",
     "modified": "2015-05-22 13:45:20",
-    "userId": "914",
+    "user_id": "914",
     "items": [
         {
-            "orderItemId": "912332",
-            "productId": "EZ-21562",
+            "order_item_id": "912332",
+            "product_id": "EZ-21562",
             "amount": 3
         },
         {
-            "orderItemId": "912333",
-            "productId": "AF-49841",
+            "order_item_id": "912333",
+            "product_id": "AF-49841",
             "amount": 1
         }
     ]
@@ -47,13 +47,12 @@ GET /orders/43983
     "id": 43983,
     "created": "2014-08-05T16:22:16Z",
     "modified": "2015-05-22T13:45:20Z",
-    "userId": "914",
+    "user_id": "914",
     "type": "order",
-    "orderItems": [
+    "order_items": [
         {
             "id": "912332",
-            "type": "orderItem",
-            "productId": "EZ-21562",
+            "product_id": "EZ-21562",
             "amount": 3,
             "links": {
                 "self": { "href": "/orders/43983/items/912332" },
@@ -62,8 +61,7 @@ GET /orders/43983
         },
         {
             "id": "912333",
-            "type": "orderItem",
-            "productId": "AF-49841",
+            "product_id": "AF-49841",
             "amount": 1,
             "links": {
                 "self": { "href": "/orders/43983/items/912333" },
@@ -77,7 +75,7 @@ GET /orders/43983
         "items": { "href": "/orders/43983/items" }
     },
     "meta": {
-      "retrievedOn": "2014-08-06T11:38:24.162Z"
+      "retrieved_on": "2014-08-06T11:38:24.162Z"
    }
 }
 ```

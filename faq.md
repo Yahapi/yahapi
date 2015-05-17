@@ -20,11 +20,11 @@ Adding hypermedia controls makes your API more fun to work with for your client.
 [JSON API](http://jsonapi.org/) is a big inspiration for Yahapi. Why you might consider using Yahapi instead is:
 
 * JSON API focusses heavily on a reserved `id` property and makes clever use of this to link resources to each other, whereas Yahapi leaves you free to pick your own identifier type. In many business domains identity schemes already exist (e.g. [EAN](http://en.wikipedia.org/wiki/International_Article_Number_(EAN))) and resources may consist of a compound key which make for a more expressive resource identifier than `id`. For example, Yahapi considers the following valid:
-	
-		GET /persons/john
-		{
-			"name": "John"
-		}
+
+    GET /persons/john
+    {
+      "name": "John"
+    }
 
 
 * Yahapi focusses on readability and simple clients where JSON API focusses on the use of smart clients:
@@ -36,7 +36,7 @@ Adding hypermedia controls makes your API more fun to work with for your client.
 Obviously we think Yahapi is great, but in one use case a particular Hypermedia type may work better than others. For example:
 
 * If you're working with an existing API and can't afford to change anything other than adding new properties you should look at [HAL](http://stateless.co/hal_specification.html).
-* If you want client software that intelligently tries to cache requests and minimize redundant requests, look at [JSON API](http://jsonapi.org/). 
+* If you want client software that intelligently tries to cache requests and minimize redundant requests, look at [JSON API](http://jsonapi.org/).
 * If you need a very comprehensive and formal approach to linking relationships between resources, have a look at [JSON+LD](http://json-ld.org/).
 * If you'd like to serialize requests and responses directly to persistable entities, look at [Siren](https://github.com/kevinswiber/siren).
 * If your API focusses on collection resources and you want to dynamically provide new search capabilities to your clients, have a look at [Collection+JSON](http://amundsen.com/media-types/collection/).
@@ -47,7 +47,7 @@ There are many flavors of Hypermedia types, finding the right one can be a chall
 
 [RFC 5988](http://tools.ietf.org/html/rfc5988) standardizes hypermedia links within a HTTP `Link`-header, for example:
 
-	Link: <http://example.com/TheBook/chapter2>; rel="previous";
+  Link: <http://example.com/TheBook/chapter2>; rel="previous";
          title="previous chapter"
 
 Yahapi does not use this because;
@@ -59,7 +59,7 @@ Yahapi does not use this because;
         GET /orders/43983
         {
             "id": 43983,
-            "customerId": 914,
+            "customer_id": 914,
             "type": "order",
             "items": [
                 {
@@ -82,23 +82,23 @@ Yahapi does not use this because;
 
 Make no mistake, collection resources must be homogeneous with regard to its element properties.
 
-In a SOA or Microservices architecture lower-level services are often unaware of the business processes in which they are used. This lack of context may render them quite generic. Lower-level services may not actually interpret what they are working with, they might just keep a reference to them. 
+In a SOA or Microservices architecture lower-level services are often unaware of the business processes in which they are used. This lack of context may render them quite generic. Lower-level services may not actually interpret what they are working with, they might just keep a reference to them.
 
 Imagine an order system that pulls products from different types of services; its list of items may be represented as follows:
 
 ```
 …
-	"items": [
+  "items": [
         {
             "type": "fresh-foods",
-            "itemId": "FD-3495723",
+            "item_id": "FD-3495723",
             "links": {
                 "self": { "href": "https://api.example.com/foods/FD-3495723" }
             }
         },
         {
             "type": "books",
-            "itemId": "BK-645",
+            "item_id": "BK-645",
             "links": {
                 "self": { "href": "https://api.example.com/books/BK-645" }
             }
@@ -112,7 +112,7 @@ The `type` is the key element for clients to understand how to interpret that re
 
 ## Why use a verbose "self" link rather than simply "href"?
 
-A property `"href": "<url>"` replacing `"links": { "self": "<url>" }` would make your API easier to read, particularly if the `self` link is the only link returned by your resource or embedded resource. 
+A property `"href": "<url>"` replacing `"links": { "self": "<url>" }` would make your API easier to read, particularly if the `self` link is the only link returned by your resource or embedded resource.
 
 Yahapi chose not to adopt `href` because:
 
@@ -142,6 +142,6 @@ The author of Yahapi is Niels Krijger (<mailto:niels@kryger.nl>).
 
 ## How can I contribute?
 
-Please do! 
+Please do!
 
 Yahapi is hosted on [Github](https://github.com/nielskrijger/yahapi), if you feel like contributing open up an [issue](https://github.com/nielskrijger/yahapi/issues) to start off a discussion or create a [Pull Request](https://github.com/nielskrijger/yahapi/pulls) with your suggested changes.

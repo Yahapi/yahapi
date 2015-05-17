@@ -37,7 +37,7 @@ GET /products/9016
 {
   "type": "food",
   "id": 9016,
-  "expirationDate": "2015-03-06"
+  "expiration_date": "2015-03-06"
 }
 
 GET /products/9017
@@ -54,7 +54,7 @@ GET /products/9016
 {
   "type": "food",
   "id": 9016,
-  "expirationDate": "2015-03-06"
+  "expiration_date": "2015-03-06"
 }
 
 GET /products/9017
@@ -121,7 +121,7 @@ A collection resource **MAY** contain different `types` if all types share the s
     {
       "type": "food",
       "id": 4897884,
-      "expirationDate": "2015-03-06"
+      "expiration_date": "2015-03-06"
     },
     {
       "type": "non-food",
@@ -233,7 +233,7 @@ GET /persons/john
   "name": "John",
   "address": {
     "street": "221A Baker Street",
-    "type": "home-address"
+    "type": "home_address"
   },
   "links": {
     "self": { "href": "/persons/john" },
@@ -262,15 +262,15 @@ Example:
 
 ```
 {
-  "code": "validation-error",
+  "code": "validation_error",
   "message": "One or more request parameters are invalid",
   "errors": [
     {
-      "code": "invalid-type",
+      "code": "invalid_type",
       "path": "/parentId",
       "message": "invalid type: string (expected number)"
     }, {
-      "code": "maximum-decimals",
+      "code": "maximum_decimals",
       "path": "/amount",
       "message": "must have no more than 2 decimals"
     }
@@ -321,11 +321,11 @@ The request above might return the following error response:
 
 ```
 {
-  "code": "validation-error",
+  "code": "validation_error",
   "message": "One or more request parameters are invalid",
   "errors": [
     {
-      "code": "invalid-type",
+      "code": "invalid_type",
       "path": "/files[1]/id",
       "message": "invalid type: number (expected string)"
     }
