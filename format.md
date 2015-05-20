@@ -369,6 +369,10 @@ If you need to support cross-domain requests you **SHOULD** use CORS, not JSONP.
 
 # Update History
 
+2015-05-20:
+
+- Renamed `previous` to `prev` due to http://www.iana.org/assignments/link-relations/link-relations.xhtml
+
 2015-05-17:
 
 - Weakened embedded resource identity from MUST to MAY.
