@@ -144,7 +144,7 @@ GET /products?offset=20&limit=10
   "products": [ … ],
   "links": {
     "next": { "href": "https://api.example.com/products?offset=30&limit=10" },
-    "previous": { "href": "https://api.example.com/products?offset=10&limit=10" }
+    "prev": { "href": "https://api.example.com/products?offset=10&limit=10" }
   },
   "meta": {
     "total": 46,
@@ -162,9 +162,9 @@ A paginated collection resource **SHOULD** support `offset` and `limit` url quer
 GET /products?offset=20&limit=10
 ```
 
-### 3.3.2 links.next and links.previous
+### 3.3.2 links.next and links.prev
 
-A paginated collection resource **MUST** return `links.next` and `links.previous` to paginate through the collection unless there is no next or previous page.
+A paginated collection resource **MUST** return `links.next` and `links.prev` to paginate through the collection unless there is no next or previous page.
 
 ### 3.3.3 meta.total
 
